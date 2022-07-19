@@ -1,0 +1,18 @@
+{%extends "base.html" %}
+
+{%block body %}
+    {% for todo in todos %}
+    <div class="todo">
+        <p>{{ todo['content'] }} <i>({{ todo['degree']}})</i></p>
+        <form method="POST" action="{{ url_for('delete', id=todo['_id']) }}" >
+            <input type="submit" value="Delete Todo" onclick="return confirm('Are you sure you want to delete this entry?')">
+        </form>
+        <form method="POST" action="{{ url_for('edit', id=todo['_id']) }}" >
+            <input type="submit" value="Edit Todo" onclick="return confirm('Are you sure you want edit this entry?')">
+        </form>
+    </div>
+    {% endfor %}
+    <div class="todo">
+        <p>{{ todo['content'] }} <i>{{ todo['degree']}}</i></p>
+    </div>
+{%endblock%}

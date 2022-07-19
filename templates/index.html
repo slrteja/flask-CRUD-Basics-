@@ -1,0 +1,71 @@
+{%extends "base.html" %}
+{% block content %}
+
+    <h1>Form</h1>
+    <hr>
+    <div class="content">
+    <form method="post">
+        <p>
+            <b><label for="name">Name</label></b>
+        </p>
+        <p>
+            <input type="text" name="name"placeholder="Name">
+        </p>
+        <p>
+            <b><label for="email">E-mail</label></b>
+        </p>
+        <p>
+            <input type="text" name="email"placeholder="Mail ID">
+        </p>
+        <p>
+            <b><label for="gender">gender</label></b>
+        </p>
+        <p>
+            <input id="gender-0" name="gender" required type="radio" value="Male">
+            <label for="gender-0">Male</label>
+        
+            <input id="gender-1" name="gender" required type="radio" value="Female">
+            <label for="gender-1">Female</label>
+
+            <input id="gender-2" name="gender" required type="radio" value="Others">
+            <label for="gender-2">others</label>
+        </p>
+            <br>
+        <button type="submit">Submit</button>
+        
+    </form>
+        <a href="/update" >Update</a>
+    
+    <hr>
+    <table  class="table">
+        <thead width="100%">
+            <th>ID</th>
+            <th class="name">Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th> </th>
+            
+        </thead>
+        {% for data in details %}
+
+        <tr>
+            <td>{{data["_id"]}}</td>
+            <td>{{data["name"]}}</td>
+            <td>{{data["email"]}}</td>
+            <td>{{data["gender"]}}</td>
+            <td>
+                <form method="POST" action="{{ url_for('delete', id=data['_id']) }}" >
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this entry?')">
+                </form>
+            
+                
+                
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    
+
+    
+{% endblock  %}}
