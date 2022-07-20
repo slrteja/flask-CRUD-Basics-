@@ -1,4 +1,6 @@
+from distutils.log import error
 from flask import Flask, flash, jsonify,render_template,request,url_for,redirect
+from numpy import number
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sqlalchemy import true
@@ -21,10 +23,11 @@ def index():
             "name" : request.form.get('name'),
             "gender" : request.form.get('gender'),
             "email": request.form.get('email'),
+            "number" : request.form.get('number'),
         }
             if db.details.find_one({"email": user["email"]}):
-                db.details.update_one({"email": "email"},{"$set": {"name": "name", "email": "email","gender": "gender"}},upsert=True)
-                return jsonify("error Email already exists")
+                error("already user created with email")
+                return jsonify({"error" : "Email already exists"})
             elif db.details.insert_one(user):
                 flash('Thanks for adding this information')
             return redirect(url_for('index'))
@@ -40,7 +43,9 @@ def delete(id):
     return redirect(url_for('index'))
 
 # ...
-
+@app.route('/edit/')
+def edit_page():
+    return render_template('edit.html')
 #...
 
 @app.route('/update/',methods=['POST','GET'])
@@ -49,9 +54,13 @@ def edit():
     name=request.form.get('name')
     email=request.form.get('email')
     gender=request.form.get('gender')
-    details.update_one({"email": email},{"$set": {"name": name ,"gender": gender}})
+    number=request.form.get('number')
+    if details.find_one_and_update({"email": email},{"$set": {"name": name ,"gender": gender,"number": number}}):
+        return redirect(url_for('index'))
+    elif jsonify("Data does not exists"):
+        return render_template('edit.html')
     return render_template('edit.html')
-
-
+    
+    
 if __name__ == "__main__":
     app.run(debug=true)
