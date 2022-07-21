@@ -60,6 +60,19 @@ def edit():
         return render_template('edit.html')
     return render_template('edit.html')
     
+@app.route('/delete/page/',methods=['POST','DELETE'])
+def dpage():
+    print (request.form)
+    email=request.form.get('email')
+    if db.details.find_one_and_delete({"email": email}):
+        return redirect(url_for('index'))
+    return redirect(url_for('index'))
+
+
+@app.route('/delete/')
+def delete_page():
+    return render_template('delete.html')
+    
     
 if __name__ == "__main__":
     app.run(debug=true)
