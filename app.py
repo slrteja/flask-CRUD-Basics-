@@ -1,6 +1,5 @@
 from distutils.log import error
 from flask import Flask, flash, jsonify,render_template,request,url_for,redirect
-from numpy import number
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sqlalchemy import true
