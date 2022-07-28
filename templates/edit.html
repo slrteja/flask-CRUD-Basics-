@@ -4,9 +4,10 @@
 
 
 <h1 class="h1edit">Update Form</h1>
-<div class="content">
+<hr>
+<div class="content" padding-top="20%">
     
-    <hr>
+    
 <form method="POST" enctype="multipart/form-data" action="/update" class="details">
    
     <p>
@@ -23,30 +24,31 @@
     </p>
     <p>
         <b><label for="number">Mobile Number</label></b>
-        <br></p><p></p>
+        <br>
+    </p>
+    <p>
         <input type="tel" id="phone" name="number" pattern="[0-9]{10-14}" minlength="10" maxlength="14" placeholder="Phone Number"  style="height: 28px; width: 212px" required>
     </p>
 
     <p>
-        <b><label for="degree">Male</label></b>
-    </p>
+        <b><label for="Category">Category</label></b>
+        <br><br>
+    
+        <input id="Category-0" name="Category" required type="radio" value="Student">
+        <label for="Category-0">Student</label>
+    
+        <input id="Category-1" name="Category" required type="radio" value="Professional">
+        <label for="Category-1">Professional</label>
+
+        <input id="Category-2" name="Category" required type="radio" value="Organization">
+        <label for="Category-2">Organization</label>
+    </p>    <br>
     <p>
-        <input id="gender-0" name="gender" required type="radio" value="Male" >
-        <label for="gender-0">Male</label>
-    </p>
-    <p>
-        <input id="gender-1" name="gender" required type="radio" value="Female">
-        <label for="gender-1">Female</label>
-        <br></p><p></p>
-        <input id="gender-2" name="gender" required type="radio" value="Others">
-        <label for="gender-2">others</label>
-        <br>
-    <p>
-        <input type="submit" value="Update" class="btn">
+        <input type="submit" value="Submit" class="btn">
     </p>
 </form>
 </div><hr>
-<div class="content">
+<div class="content" >
     <a href="/">Home</a>
 </div>
 <hr>

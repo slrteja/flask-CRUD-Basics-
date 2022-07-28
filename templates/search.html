@@ -1,0 +1,24 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+<table>
+    <thead>
+        <th class="name">Name</th>
+        <th width="30%">Email</th>
+        <th width="10%" >Category</th>
+        <th>Number</th>        
+    </thead>
+    {% for data in results %}
+
+    <tr>
+        <td>{{data["name"]}}</td>
+        <td>{{data["email"]}}</td>
+        <td>{{data["category"]}}</td>
+        <td>{{data["number"]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{%endblock%}

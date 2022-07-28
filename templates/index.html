@@ -1,87 +1,106 @@
 {%extends "base.html" %}
 {% block content %}
-
-    <div class="content">
-        <h1>Form</h1>
-    </div>
-    <hr>
-    <div class="content">
+<div class="content2" align="center">
+    <h1>Form</h1>
+</div>
+<hr>
+<div class="content">
     <form method="post" class="details" name="details">
-        <p>
-            <b><label for="name">Name</label></b><br>
-        </p><p>
-            <input required type="text" name="name"placeholder="Name" style="height: 28px; width: 212px">
-        </p>
-        <p>
-            <b><label for="email">E-mail</label></b>
-            <br></p><p>
-            <input type="text" required name="email"placeholder="Mail ID" style="height: 28px; width: 212px">
-        </p>
-        <p>
-            <b><label for="number">Mobile Number</label></b>
-            <br></p><p>
-            <input type="tel" id="phone" name="number" pattern="[0-9]{10-14}" minlength="10" maxlength="14" style="height: 28px; width: 212px" placeholder="Phone Number" required>
-        </p>
-        
-        <p>
-            <b><label for="gender">Gender</label></b>
-            <br>
-        
-            <input id="gender-0" name="gender" required type="radio" value="Male">
-            <label for="gender-0">Male</label>
-        
-            <input id="gender-1" name="gender" required type="radio" value="Female">
-            <label for="gender-1">Female</label>
-
-            <input id="gender-2" name="gender" required type="radio" value="Others">
-            <label for="gender-2">Others</label>
-        </p>
-        <p class="success success-hidden"></p>
-        <p class="error error-hidden"></p>
-            <br>
-        <button class="btn" type="submit">Submit</button>
-        
+        <p><b>
+        <label for="name">Name</label></b><br></p><p>
+        <input required type="text" name="name"placeholder="Name" style="height: 28px; width: 212px">
+    </p>
+    <p>
+    <b><label for="email">E-mail</label></b>
+    <br></p><p>
+        <input type="text" required name="email"placeholder="Mail ID" style="height: 28px; width: 212px">
+    </p>
+    <p>
+        <b><label for="number">Mobile Number</label></b>
+        <br></p><p>
+        <input type="tel" id="phone" name="number" pattern="[0-9]{10-14}" minlength="10" maxlength="14" style="height: 28px; width: 212px" placeholder="Phone Number" required>
+    </p>
+    <p>
+        <b><label for="category">Category</label></b>
+        <br> <br>
+        <input id="category-0" name="category" required type="radio" value="Student">
+        <label for="category-0">Student</label>
+        <input id="category-1" name="category" required type="radio" value="Professional">
+        <label for="category-1">Professional</label>
+        <input id="category-2" name="category" required type="radio" value="Organization">
+        <label for="category-2">Organization</label>
+    </p>
+    <p class="success success-hidden"></p>
+    <p class="error error-hidden"></p>
+        <br>
+    <button class="btn" type="submit">Submit</button>
+    <br> 
     </form>
-        
+    <form action="{{ url_for('file') }}" method="post" type="file" enctype="multipart/form-data" accept="text/plain">
+        <label for="file">Inster File here...</label>
+        <br><br>
+        <input name="file" required type="file" value="file">
+        <input class="btnni" type="submit" value="Insert File">
+    </form>
+    <div>
+        {%for text in file%}
+        <p>{{text}}</p>
+        {%endfor%}
     </div>
-    <hr>
-    <div class="details-table">
-
-    
-    <table>
-        <thead width="100%">
-            <th>ID</th>
+</div>
+<hr>
+<div class="Search" align="center">
+    <form method="GET" action="{{ url_for('search')}}">
+        <label for="search-form">Search the data</label>
+        <br>
+        <table class="search-results" id="" align="center">
+            <tr>
+                <td class="search-results">
+                    <select name="refer" id="refer" required>
+                        <option type="email" value="email">E-mail</option>
+                        <option type="tel" value="number">Number</option>
+                        <option value="_id">Id</option>
+                    </select>
+                </td>
+                <td class="search-results"><input name="key" placeholder="Search" size="15"></td>
+                <td class="search-results"><button type="submit">Search</button></td>
+            </tr>
+        </table>
+    </form>
+    <br><br><br><br><br><br><br><br><br>
+</div>
+<div class="details-table" align="center" >
+    <table align="center">
+        <thead>
             <th class="name">Name</th>
-            <th>Email</th>
-            <th>Gender</th>
+            <th width="30%">Email</th>
+            <th width="10%" >Category</th>
             <th>Number</th>
             <th> Modify </th>
-            
         </thead>
         {% for data in details %}
-
         <tr>
-            <td>{{data["_id"]}}</td>
             <td>{{data["name"]}}</td>
             <td>{{data["email"]}}</td>
-            <td>{{data["gender"]}}</td>
+            <td>{{data["category"]}}</td>
             <td>{{data["number"]}}</td>
             <td>
                 <form method="POST" action="{{ url_for('delete', id=data['_id']) }}" >
                     <input type="submit"  class="btnnd" value="Delete" onclick="return confirm('Are you sure you want to delete this entry?')">
                 </form>
-            
-                
-                <div class="home">
-                    <a href="/edit/" ><button href="edit.html" id="Update-btn"  class="btnn" type="submit">Update</button></a>
-                    
+                <div class="home" >
+                    <form action="/edit/">
+                        <button id="Update-btn"  class="btnnu" type="submit">Update</button>
+                    </form>
                 </div>
             </td>
         </tr>
         {% endfor %}
-
     </table>
-    </div>
-
-    
-{% endblock  %}}
+</div>
+<div class="home" align="center">
+    <form action="/delete">
+        <button action="/delete/" id="Delete-btn"  class="btnnd" type="submit">Delete with Email</button>
+    </form>
+</div>
+{% endblock  %}
